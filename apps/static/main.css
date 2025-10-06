@@ -1,0 +1,45 @@
+
+.container {
+  width: 100%;
+}
+
+.block-link {
+  display: block;       
+  width: 100%;
+  padding: 18px;
+  text-align: center;
+  text-decoration: underline;
+  font-size: 18px;  
+}
+
+.block-1 { background: rgb(51, 175, 73); color: red; }
+.block-2 { background: gray; color: rgb(247, 232, 34); }
+.block-3 { background: black; color: white; }
+
+.block-link:hover{
+    color: rgb(124, 16, 124);
+    background-color: rgb(16, 76, 140);
+}
+
+.example {
+    color: green;
+    background-color: beige;
+    padding: 10px;
+}
+
+.listing-header {
+    background-color: rgb(113, 174, 228);
+    padding: 10px;
+}
+
+
+.table1 , th ,td {
+border: 1px solid black;
+text-align: center;
+margin: 20px auto; 
+}
+
+.table2 { 
+    border-collapse: collapse;
+    margin: 20px auto; 
+}
