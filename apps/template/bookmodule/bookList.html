@@ -1,0 +1,17 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Book Results{% endblock title %}
+
+{% block content %}
+<h2>Search Results</h2>
+
+
+ {% for obj in books %}
+ ID: {{obj.id}}, Title: {{obj.title}}
+  <hr>
+{% endfor %}
+
+
+<p><a href="/books/search">Back to search</a></p>
+{% endblock content %}
