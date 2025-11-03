@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Book
-
+from .models import Book,Student
+from django.db.models import Q,Count,Sum,Min,Max,Avg
 def __getBooksList():
     book1 = {'id':12344321, 'title':'Continuous Delivery', 'author':'J.Humble and D. Farley'}
     book2 = {'id':56788765,'title':'Reversing: Secrets of Reverse Engineering', 'author':'E. Eilam'}
@@ -58,12 +58,37 @@ def simple_query(request):
 
 def lookup_query(request):
     mybooks=books=Book.objects.filter(author__isnull =
-False).filter(title__icontains='a').filter(edition__gte = 2).exclude(price__lte = 10)[:10]
+False).filter(title__icontains='and').filter(edition__gte = 2).exclude(price__lte = 10)[:10]
     if len(mybooks)>=1:
         return render(request, 'bookmodule/bookList.html', {'books':mybooks})
     else:
         return render(request, 'bookmodule/index.html')
 
+def task1(request):
+    mybooks = Book.objects.filter(Q(price__lte = 80))
+    return render(request, 'bookmodule/bookList.html', {'books':mybooks})
+
+def task2(request):
+    mybooks = Book.objects.filter(Q(edition__gt = 3)& (Q(title__contains = "Qu")|Q(author__contains = "Qu")))
+    return render(request, 'bookmodule/bookList.html', {'books':mybooks})
+
+def task3(request):
+    mybooks = Book.objects.filter(~Q(edition__gt = 3)& (~Q(title__contains = "qu")|~Q(author__contains = "qu")))
+    return render(request , "bookmodule/bookList.html", {'books': mybooks})
+
+
+def task4(request):
+    mybooks = Book.objects.filter().order_by('title')
+    return render(request , "bookmodule/bookList.html", {'books': mybooks})
+
+def task5(request):
+    stat =  Book.objects.aggregate(count = Count("id"),total = Sum('price',default=0),avg = Avg('price',default=0),min= Min('price',default=0),max=Max('price',default=0))
+    print(stat)
+    return render(request,"bookmodule/book_Stat.html",{'stat':stat})
+
+def task7(request):
+    data = Student.objects.values('address__city').annotate(count=Count('id'))
+    return render(request, "bookmodule/student_city.html", {'data': data})
 
 # def index(request):
 #     name = request.GET.get("name") or "world!"

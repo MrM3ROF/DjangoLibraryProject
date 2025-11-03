@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Students per City</title>
+</head>
+<body>
+    <h2>Number of Students in Each City</h2>
+
+    {% for row in data %}
+        <p>{{ row.address__city }} : {{ row.count }}</p>
+    {% endfor %}
+
+</body>
+</html>
